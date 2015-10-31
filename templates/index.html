@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset = "utf8">
+    <title>Ten years numbers</title>
+    <script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#container').highcharts({                   //图表展示容器，与div的id保持一致
+                chart: {
+                    // type: 'column'                         //图表的类型，默认是折线图（line）
+                    type: 'line'
+                },
+                title: {
+                    text: '校长信箱<string>10年</strong>信件数量'      //指定图表标题
+                },
+                xAxis: {
+                    title:{
+                        text: "年份"
+                    },
+                    categories:
+                    [
+                        {% for year in results %}
+                          {{year['y']}},
+                        {% end %}
+                    ]
+                },
+                yAxis: {
+                    title: {
+                        text: '数量'                  //指定y轴的标题
+                    }
+                },
+                series: [{                                 //指定数据列
+                    name: '投诉数量',                          //数据列名
+                    data:
+                    [
+                        {% for value in results %}
+                            {{value['num']}},
+                        {% end %}
+                    ]                        //数据
+                }]
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="container" style="min-width:800px;height:400px"></div>
+</body>
+
+</html>
